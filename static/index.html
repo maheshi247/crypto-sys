@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Analytics Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-9 5 18 3-9h5"/></svg>
+                </div>
+                <h1>CryptoAnalytics</h1>
+            </div>
+            
+            <div class="controls">
+                <div class="select-wrapper">
+                    <select id="assetSelect">
+                        <option value="BTC">Bitcoin (BTC)</option>
+                        <option value="ETH">Ethereum (ETH)</option>
+                        <option value="SOL">Solana (SOL)</option>
+                    </select>
+                </div>
+                
+                <div class="select-wrapper">
+                    <select id="limitSelect">
+                        <option value="14">Last 14 Days</option>
+                        <option value="30" selected>Last 30 Days</option>
+                        <option value="100">Last 100 Days</option>
+                    </select>
+                </div>
+                
+                <div class="select-wrapper">
+                    <select id="modelSelect">
+                        <option value="LSTM">LSTM Model</option>
+                        <option value="GRU">GRU Model</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <div class="stats-panel">
+                <div class="stat-card">
+                    <span class="stat-label">Current Price</span>
+                    <span class="stat-value" id="currentPrice">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">24h Change</span>
+                    <span class="stat-value" id="priceChange">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">24h High</span>
+                    <span class="stat-value" id="highPrice">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">24h Low</span>
+                    <span class="stat-value" id="lowPrice">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Predicted Price</span>
+                    <span class="stat-value" id="predictedPrice" style="color: #a855f7;">--</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">News Sentiment</span>
+                    <div id="sentimentCardValue" class="sentiment-pill neutral">
+                        <span id="sentimentLabel">Neutral</span>
+                        <span id="sentimentScore">(0.00)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container-wrapper">
+                <div id="loadingOverlay" class="loading-overlay">
+                    <div class="spinner"></div>
+                </div>
+                <div id="tvchart" class="chart-container"></div>
+                <div class="axis-label">Timeline (Date)</div>
+            </div>
+
+            <!-- News & Sentiment Analysis Panel -->
+            <div class="sentiment-panel">
+                <div class="sentiment-header">
+                    <div class="sentiment-icon">📰</div>
+                    <div class="sentiment-title">
+                        <h3>Crypto News Sentiment AI Analysis</h3>
+                        <p>Powered by NLP Next-Word & Sentiment Prediction Model</p>
+                    </div>
+                </div>
+                <div class="sentiment-body">
+                    <div class="sentiment-metric">
+                        <span class="metric-label">Latest Analyzed Headline:</span>
+                        <p class="headline-text" id="headlineText">"Bitcoin breaks resistance as market volume surges."</p>
+                    </div>
+                    <div class="sentiment-metric">
+                        <span class="metric-label">AI Signal:</span>
+                        <span class="signal-badge" id="signalBadge">BUY</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Live Next-Word Prediction Tool -->
+            <div class="sentiment-panel word-predictor-panel">
+                <div class="sentiment-header">
+                    <div class="sentiment-icon">✨</div>
+                    <div class="sentiment-title">
+                        <h3>Live AI Next-Word Generator</h3>
+                        <p>Enter starting words to predict the next 5 words in real-time</p>
+                    </div>
+                </div>
+                <div class="predictor-controls">
+                    <input type="text" id="seedInput" class="predictor-input" placeholder="Type prompt e.g. 'Bitcoin is expected to'..." value="Bitcoin price is likely to">
+                    <button id="predictWordsBtn" class="predict-btn">Predict Next 5 Words ✨</button>
+                </div>
+                <div class="predictor-result">
+                    <span class="metric-label">AI Generated Completion:</span>
+                    <div class="completion-box" id="predictedCompletionBox">
+                        <span id="seedSpan" class="seed-text">Bitcoin price is likely to</span>
+                        <span id="predictedWordsSpan" class="generated-words"> surge past previous high resistance</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Lightweight Charts via CDN -->
+    <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js" crossorigin="anonymous"></script>
+    <script src="script.js?v=5"></script>
+</body>
+</html>
